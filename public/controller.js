@@ -1,49 +1,29 @@
-var currentCity;
-var userCities = [];
-var currentDate = new Date();
-
-function convert(data) {
-   return Math.round(data - 273.15);
-}
-
-function fetch(currentCity) {
-  console.log("Please wait a few seconds while data loads...");
-    $.get({
-        url: 'http://localhost:8080/get_weather/' + currentCity,
-        success: function(data) {
-            console.log(data);
-            // var city = {
-            //     name: data.name,
-            //     temp: data.main,
-            //     currentCel:convert(data.main.temp),
-            //     currentFar:Math.round((data.main.temp-273.15)*1.8+32),
-            //     minTempC:Math.round(data.main.temp_min-273.15),
-            //     maxTempC:Math.round(data.main.temp_max-273.15),
-            //     minTempF:Math.round((data.main.temp_min-273.15)*1.8+32),
-            //     maxTempF:Math.round((data.main.temp_max-273.15)*1.8+32),
-            //     description:data.weather,
-            //     sys:data.sys,
-            //     comments:[],
-            //     date:currentDate.getDate()
-            // }
-            // userCities.push(city);
-            // _renderCityTemps(userCities);
-        },
-        error: function (err) {
-          console.log(err);
-        }
+var app = angular.module('weather', []);
+app.controller('weather-controller', ['$scope','$http', function($scope, $http) {
+  $scope.showOrHideViews = {
+    weather: false,
+    spinner: false
+  };
+  // input field autocomplete init
+  var userinput = document.getElementById("userInput");
+  var autocomplete = new google.maps.places.Autocomplete(userinput);
+  // end autocomplete field init
+  console.log("in controller");
+  $scope.handleSearch = function() {
+    console.log("started search");
+    $scope.showOrHideViews.weather = false;
+    $scope.showOrHideViews.spinner = true;
+    $scope.weather = null;
+    $http.get('http://localhost:8080/get_weather/' + $scope.weather_location)
+    .then(function(weather) {
+      $scope.showOrHideViews.weather = true;
+      $scope.showOrHideViews.spinner = false;
+      $scope.weather_location = ""; // NOTE: reset input value
+      $scope.weather = weather.data;
+      console.log(weather);
+    }).catch(function(err) {
+      console.log(err);
     });
-}
+  };
 
-function grabUserData() {
-  currentCity = $("#userInput").val();
-  $("#userInput").val('');
-}
-
-$("#search").on('click', function () {
-    grabUserData();
-    fetch(currentCity);
-})
-
-var userinput = document.getElementById("userInput");
-var autocomplete = new google.maps.places.Autocomplete(userinput);
+}]);

@@ -9,27 +9,37 @@
       <link href="https://fonts.googleapis.com/css?family=Slabo+27px" rel="stylesheet">
       <title>Weather app</title>
   </head>
-  <body>
+  <body ng-app="weather" ng-controller="weather-controller">
       <div class="container-fluid">
           <div class="page-header">
               <h1>Weather Chat</h1>
               <div class="row">
                   <div class="col-xs-12">
                       <div class="input-group form-group">
-                          <input id="userInput" type="text" class="form-control" placeholder="Search City">
+                          <input ng-model="weather_location" id="userInput" type="text" class="form-control" placeholder="Search City">
                           <span class="input-group-btn">
-                      <button id="search" class="btn btn-primary" type="button"><i class="fa fa-search"></i> Search For Temp</button>
+                      <button ng-click="handleSearch()" id="search" class="btn btn-primary" type="button"><i class="fa fa-search"></i> Search For Temp</button>
                   </span>
                       </div>
                   </div>
               </div>
           </div>
       </div>
-      <div class="container postCities">
+      <div ng-show="showOrHideViews.spinner" class="img-spinner-container">
+        <img src="http://thinkfuture.com/wp-content/uploads/2013/10/loading_spinner.gif">
       </div>
+      <div ng-show="showOrHideViews.weather" class="container weather-info">
+        <p> Name: {{ weather.metrics.title }} </p>
+        <p> Temperature: {{ weather.metrics.temperature }}
+          <img ng-src="{{weather.icons.temperature}}"> </img>
+        </p>
+        <p> Humidity: {{ weather.metrics.humidity }} </p>
+        <p> Wind Speed: {{ weather.metrics.wind_gust }} </p>
+      </div>
+      <script src="angular/angular.js"></script>
       <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCcrziC5YUCRtuqnocJxE4zg0ubcmnN9Tw&libraries=places"></script>
-      <script type="text/javascript" src="jquery/dist/jquery.min.js"></script>
-      <script type="text/javascript" src="handlebars/dist/handlebars.min.js"></script>
-      <script type="text/javascript" src="controller.js"></script>
+      <script src="jquery/dist/jquery.min.js"></script>
+      <script src="handlebars/dist/handlebars.min.js"></script>
+      <script src="controller.js"></script>
   </body>
 </html>
