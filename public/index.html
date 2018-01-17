@@ -16,7 +16,7 @@
               <div class="row">
                   <div class="col-xs-12">
                       <div class="input-group form-group">
-                          <input ng-model="weather_location" id="userInput" type="text" class="form-control" placeholder="Search City">
+                          <input ng-autocomplete ng-model="weather_location" id="userInput" type="text" class="form-control" placeholder="Search City">
                           <span class="input-group-btn">
                       <button ng-click="handleSearch()" id="search" class="btn btn-primary" type="button"><i class="fa fa-search"></i> Search For Temp</button>
                   </span>
@@ -29,17 +29,20 @@
         <img src="http://thinkfuture.com/wp-content/uploads/2013/10/loading_spinner.gif">
       </div>
       <div ng-show="showOrHideViews.weather" class="container weather-info">
-        <p> Name: {{ weather.metrics.title }} </p>
+        <p class="cityName"> Name: {{ weather.metrics.title }} </p>
         <p> Temperature: {{ weather.metrics.temperature }}
-          <img ng-src="{{weather.icons.temperature}}"> </img>
+          <img class="weather-icon" ng-src="{{weather.icons.temperature}}"> </img>
         </p>
         <p> Humidity: {{ weather.metrics.humidity }} </p>
         <p> Wind Speed: {{ weather.metrics.wind_gust }} </p>
       </div>
+      <div ng-show="error" class="alert alert-danger">
+        {{ error }}
+      </div>
       <script src="angular/angular.js"></script>
-      <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCcrziC5YUCRtuqnocJxE4zg0ubcmnN9Tw&libraries=places"></script>
+      <script src="http://maps.googleapis.com/maps/api/js?libraries=places"></script>
+      <script src="ng-autocomplete/src/ngAutocomplete.js"></script>
       <script src="jquery/dist/jquery.min.js"></script>
-      <script src="handlebars/dist/handlebars.min.js"></script>
       <script src="controller.js"></script>
   </body>
 </html>

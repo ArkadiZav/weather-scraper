@@ -11,7 +11,7 @@
   margin-bottom:20px;
 }
 .align {
-  margin:20 20 10px;
+  margin: 20 20 10px;
 }
 .cities::after{
   top: 100%;
@@ -22,12 +22,6 @@
   border-top-color: #909090;
   border-width: 13px;
   margin-left: -20px;
-}
-.fa-trash-o {
-  position:absolute;
-  top: 15px;
-  right: 15px;
-  color: red;
 }
 .fa-circle-o {
   font-size:7px;
