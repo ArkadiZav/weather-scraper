@@ -1,8 +1,9 @@
 var app = angular.module('weather', ['ngAutocomplete']);
 app.controller('weather-controller', ['$scope','$http', function($scope, $http) {
 
+  $scope.cities = [];
   $scope.showOrHideViews = {
-    weather: false,
+    cities_data: false,
     spinner: false,
     error: null
   };
@@ -19,16 +20,15 @@ app.controller('weather-controller', ['$scope','$http', function($scope, $http) 
   }
   $scope.handleSearch = function() {
     console.log("started search");
-    $scope.showOrHideViews.weather = false;
     $scope.showOrHideViews.spinner = true;
     $scope.error = null;
-    $scope.weather = null;
     $http.get('http://localhost:8080/get_weather/' + RemoveCountriesStrFromLocation($scope.weather_location))
     .then(function(weather) {
+      $scope.showOrHideViews.cities_data = true;
       $scope.showOrHideViews.weather = true;
       $scope.showOrHideViews.spinner = false;
       $scope.weather_location = ""; // NOTE: reset input value
-      $scope.weather = weather.data;
+      $scope.cities.push(weather.data);
       console.log(weather);
     }).catch(function(err) {
       $scope.showOrHideViews.spinner = false;

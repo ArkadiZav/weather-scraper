@@ -12,7 +12,11 @@
   <body ng-app="weather" ng-controller="weather-controller">
       <div class="container-fluid">
           <div class="page-header">
-              <h1>Weather Chat</h1>
+              <h1>Weather App
+                <span ng-show="showOrHideViews.spinner" class="img-spinner-container">
+                  <img class="spinner" src="http://thinkfuture.com/wp-content/uploads/2013/10/loading_spinner.gif">
+                </span>
+              </h1>
               <div class="row">
                   <div class="col-xs-12">
                       <div class="input-group form-group">
@@ -25,16 +29,15 @@
               </div>
           </div>
       </div>
-      <div ng-show="showOrHideViews.spinner" class="img-spinner-container">
-        <img src="http://thinkfuture.com/wp-content/uploads/2013/10/loading_spinner.gif">
-      </div>
-      <div ng-show="showOrHideViews.weather" class="container weather-info">
-        <p class="cityName"> Name: {{ weather.metrics.title }} </p>
-        <p> Temperature: {{ weather.metrics.temperature }}
-          <img class="weather-icon" ng-src="{{weather.icons.temperature}}"> </img>
-        </p>
-        <p> Humidity: {{ weather.metrics.humidity }} </p>
-        <p> Wind Speed: {{ weather.metrics.wind_gust }} </p>
+      <div class="container row" ng-show="showOrHideViews.cities_data">
+        <div ng-repeat="weather in cities" class="weather-info col-sm-6 col-md-4">
+          <p class="cityName"> Name: {{ weather.metrics.title }} </p>
+          <p> Temperature: {{ weather.metrics.temperature }}
+            <img class="weather-icon" ng-src="{{weather.icons.temperature}}"> </img>
+          </p>
+          <p> Humidity: {{ weather.metrics.humidity }} </p>
+          <p> Wind Speed: {{ weather.metrics.wind_gust }} </p>
+        </div>
       </div>
       <div ng-show="error" class="alert alert-danger">
         {{ error }}

@@ -1,3 +1,6 @@
+p, h1 {
+  text-align: center;
+}
 .row {
   margin-top:30px;
 }
@@ -10,34 +13,24 @@
   border-radius: 5px;
   margin-bottom:20px;
 }
-.align {
-  margin: 20 20 10px;
-}
-.cities::after{
-  top: 100%;
-  left: 10%;
-  border: solid transparent;
-  content: "";
-  position: absolute;
-  border-top-color: #909090;
-  border-width: 13px;
-  margin-left: -20px;
-}
-.fa-circle-o {
-  font-size:7px;
+
+.container {
+  margin: 0 auto;
 }
 
 .container-fluid {
-  margin:0 30px;
+  margin: 0 10%;
 }
-.block {
-  display:block;
-}
+
 .cityName {
-  font-size:16px;
-  font-weight:bold;
+  font-size: 16px;
+  font-weight: bold;
 }
 .weather-icon {
   height: 35px;
   width: 35px;
+}
+.spinner {
+  width: 60px;
+  height: 60px;
 }
