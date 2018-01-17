@@ -7,10 +7,10 @@ function convert(data) {
 }
 
 function fetch(currentCity) {
+  console.log("Please wait a few seconds while data loads...");
     $.get({
         url: 'http://localhost:8080/get_weather/' + currentCity,
         success: function(data) {
-            //update the userData using API data
             console.log(data);
             // var city = {
             //     name: data.name,
