@@ -9,7 +9,6 @@ app.controller('weather-controller', ['$scope','$http', function($scope, $http) 
   };
 
   function RemoveCountriesStrFromLocation(full_input) { // NOTE: helper function
-    console.log(full_input);
     var result = full_input;
     var indexOfFirstComma = full_input.indexOf(",");
     if (indexOfFirstComma > 0) { // Comma exists
@@ -19,17 +18,14 @@ app.controller('weather-controller', ['$scope','$http', function($scope, $http) 
     return result;
   }
   $scope.handleSearch = function() {
-    console.log("started search");
     $scope.showOrHideViews.spinner = true;
     $scope.error = null;
     $http.get('http://localhost:8080/get_weather/' + RemoveCountriesStrFromLocation($scope.weather_location))
     .then(function(weather) {
       $scope.showOrHideViews.cities_data = true;
-      $scope.showOrHideViews.weather = true;
       $scope.showOrHideViews.spinner = false;
       $scope.weather_location = ""; // NOTE: reset input value
       $scope.cities.push(weather.data);
-      console.log(weather);
     }).catch(function(err) {
       $scope.showOrHideViews.spinner = false;
       $scope.error = "an error has occured performing the search. Please try again";
